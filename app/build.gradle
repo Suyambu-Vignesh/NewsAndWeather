@@ -1,0 +1,85 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs'
+}
+
+android {
+    compileSdkVersion target_sdk
+    buildToolsVersion build_tool_version
+
+    defaultConfig {
+        applicationId "com.svk.newsapiclient"
+        minSdkVersion min_sdk
+        targetSdkVersion compile_sdk
+        versionCode 1
+        versionName "1.0"
+        buildConfigField("String","API_KEY",MY_KEY)
+        buildConfigField("String","BASE_URL",MY_URL)
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        viewBinding = true
+    }
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}
+
+dependencies {
+    implementation deps.jetbrain_kotlin.kotlin_stdlib
+    implementation deps.jetbrain_kotlin.kotlinx_coroutines_android
+    implementation deps.jetbrain_kotlin.kotlinx_coroutines_core
+    implementation deps.google_android.hilt_android
+    kapt deps.google_android.hilt_compiler
+
+    implementation deps.google_android.android_material
+    implementation deps.google_android.gson
+
+    implementation deps.androidX.core_ktx
+    implementation deps.androidX.legacy_support
+    implementation deps.androidX.compact
+    implementation deps.androidX.constraint_layout
+    implementation deps.androidX.lifecyle_viewmodel
+    implementation deps.androidX.lifecyle_livedata
+    implementation deps.androidX.lifecyle_commion_java
+    implementation deps.androidX.navigation_fragment
+    implementation deps.androidX.navigation_ui
+    implementation deps.androidX.room_runtime
+    implementation deps.androidX.room_ktx
+    kapt deps.androidX.room_compiler
+
+    implementation deps.sqaure.retrofit
+    implementation deps.sqaure.retrofit_gson
+    implementation deps.sqaure.ohhtp3
+
+    implementation deps.glide.core
+    kapt deps.glide.compiler
+
+    // optional - Test helpers
+    testImplementation deps.test.room
+    testImplementation deps.test.junit
+    testImplementation deps.test.okhttp_mock_server
+    testImplementation deps.test.google_truth
+    androidTestImplementation deps.test.junit_android
+    androidTestImplementation deps.test.android_espresso
+}

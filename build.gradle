@@ -1,0 +1,20 @@
+buildscript {
+    apply from: new File(rootProject.projectDir, "${projectRoot}/gradle/support/versions.gradle")
+    apply from: new File(rootProject.projectDir, "${projectRoot}/gradle/support/deps.gradle")
+
+    dependencies {
+        classpath(deps.root_deps.nav_safe_agrs)
+    }
+}
+
+plugins {
+    id 'com.android.application' version "${plugin_android}" apply false
+    id 'com.android.library' version "${plugin_android}" apply false
+    id 'org.jetbrains.kotlin.android' version "${plugin_jetbrains_kotlin}" apply false
+    id 'com.google.dagger.hilt.android' version "${plugin_hilt}" apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+

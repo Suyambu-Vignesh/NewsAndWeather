@@ -1,0 +1,57 @@
+apply from: new File(rootProject.projectDir, "${projectRoot}/gradle/support/versions.gradle")
+
+def deps = [:]
+
+def root_deps = [:]
+root_deps.nav_safe_agrs = "androidx.navigation:navigation-safe-args-gradle-plugin:$dep_nav"
+deps.root_deps = root_deps
+
+def jetbrain_kotlin = [:]
+jetbrain_kotlin.kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$dep_kotlin_version"
+jetbrain_kotlin.kotlinx_coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$dep_coroutines_android"
+jetbrain_kotlin.kotlinx_coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$dep_coroutines_android_core"
+deps.jetbrain_kotlin = jetbrain_kotlin
+
+def google_android = [:]
+google_android.hilt_android = "com.google.dagger:hilt-android:$dep_google_hilt"
+google_android.hilt_compiler = "com.google.dagger:hilt-compiler:$dep_google_hilt"
+google_android.android_material = "com.google.android.material:material:$dep_google_android_material"
+google_android.gson = "com.google.code.gson:gson:$dep_google_gson"
+deps.google_android = google_android
+
+def androidX = [:]
+androidX.core_ktx = "androidx.core:core-ktx:$dep_androidx_core_ktx"
+androidX.legacy_support = "androidx.legacy:legacy-support-v4:$dep_androidx_legacy_support"
+androidX.compact = "androidx.appcompat:appcompat:$dep_androidx_compact"
+androidX.constraint_layout = "androidx.constraintlayout:constraintlayout:$dep_androidx_constraint_layout"
+androidX.lifecyle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$dep_androidx_life_cyle"
+androidX.lifecyle_livedata = "androidx.lifecycle:lifecycle-livedata-ktx:$dep_androidx_life_cyle"
+androidX.lifecyle_commion_java = "androidx.lifecycle:lifecycle-common-java8:$dep_androidx_life_cyle"
+androidX.navigation_fragment = "androidx.navigation:navigation-fragment-ktx:$dep_nav"
+androidX.navigation_ui = "androidx.navigation:navigation-ui-ktx:$dep_nav"
+androidX.room_runtime = "androidx.room:room-runtime:$dep_androidx_room_version"
+androidX.room_ktx = "androidx.room:room-ktx:$dep_androidx_room_version"
+androidX.room_compiler = "androidx.room:room-compiler:$dep_androidx_room_version"
+deps.androidX = androidX
+
+def sqaure = [:]
+sqaure.retrofit = "com.squareup.retrofit2:retrofit:$dep_square_retrofit"
+sqaure.retrofit_gson = "com.squareup.retrofit2:converter-gson:$dep_square_retrofit"
+sqaure.ohhtp3 = "com.squareup.okhttp3:okhttp:$dep_square_okhttp3"
+deps.sqaure = sqaure
+
+def glide = [:]
+glide.core = "com.github.bumptech.glide:glide:$dep_glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$dep_glide"
+deps.glide = glide
+
+def test = [:]
+test.room = "androidx.room:room-testing:$dep_androidx_room_version"
+test.junit = "junit:junit:$dep_test_junit"
+test.junit_android = "androidx.test.ext:junit:$dep_test_junit_android"
+test.okhttp_mock_server = "com.squareup.okhttp3:mockwebserver:$dep_square_okhttp3"
+test.google_truth = "com.google.truth:truth:$dep_test_google_truth"
+test.android_espresso = "androidx.test.espresso:espresso-core:$dep_test_android_expresso"
+deps.test = test
+
+ext.deps = deps
