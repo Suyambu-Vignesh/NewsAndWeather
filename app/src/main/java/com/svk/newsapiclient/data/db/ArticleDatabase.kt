@@ -11,7 +11,6 @@ import com.svk.newsapiclient.data.model.Article
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-abstract  class ArticleDatabase : RoomDatabase(){
-    abstract fun getArticleDAO():ArticleDAO
+abstract class ArticleDatabase : RoomDatabase() {
+    abstract fun getArticleDAO(): ArticleDAO
 }
-

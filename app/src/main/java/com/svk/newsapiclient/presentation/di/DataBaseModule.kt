@@ -26,6 +26,4 @@ class DataBaseModule {
     fun provideNewsDao(articleDatabase: ArticleDatabase): ArticleDAO {
         return articleDatabase.getArticleDAO()
     }
-
-
 }

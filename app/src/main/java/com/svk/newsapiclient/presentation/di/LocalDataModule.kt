@@ -14,21 +14,7 @@ import javax.inject.Singleton
 class LocalDataModule {
     @Singleton
     @Provides
-    fun provideLocalDataSource(articleDAO: ArticleDAO):NewsLocalDataSource{
-      return NewsLocalDataSourceImpl(articleDAO)
+    fun provideLocalDataSource(articleDAO: ArticleDAO): NewsLocalDataSource {
+        return NewsLocalDataSourceImpl(articleDAO)
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

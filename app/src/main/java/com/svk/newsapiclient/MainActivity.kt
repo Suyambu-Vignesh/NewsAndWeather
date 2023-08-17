@@ -1,7 +1,7 @@
 package com.svk.newsapiclient
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -16,6 +16,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: NewsViewModelFactory
+
     @Inject
     lateinit var newsAdapter: NewsAdapter
     lateinit var viewModel: NewsViewModel
@@ -30,9 +31,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         binding.bnvNews.setupWithNavController(
-           navController
+            navController
         )
-        viewModel = ViewModelProvider(this,factory)
+        viewModel = ViewModelProvider(this, factory)
             .get(NewsViewModel::class.java)
     }
 }
