@@ -7,17 +7,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion target_sdk
-    buildToolsVersion build_tool_version
+    compileSdkVersion AppConfig.minCompileSdk
+    buildToolsVersion AppConfig.appBuildToolVersion
 
     defaultConfig {
-        applicationId "com.svk.newsapiclient"
-        minSdkVersion min_sdk
-        targetSdkVersion compile_sdk
-        versionCode 1
-        versionName "1.0"
-        buildConfigField("String","API_KEY",MY_KEY)
-        buildConfigField("String","BASE_URL",MY_URL)
+        applicationId AppModuleName.appPackageName
+        minSdkVersion AppConfig.appBuildMinSdk
+        targetSdkVersion AppConfig.appTargetSdk
+        versionCode AppConfig.appVersionCode
+        versionName AppConfig.appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -46,40 +44,41 @@ kapt {
 }
 
 dependencies {
-    implementation deps.jetbrain_kotlin.kotlin_stdlib
-    implementation deps.jetbrain_kotlin.kotlinx_coroutines_android
-    implementation deps.jetbrain_kotlin.kotlinx_coroutines_core
-    implementation deps.google_android.hilt_android
-    kapt deps.google_android.hilt_compiler
+    implementation DepJetBrainKotlin.KOTLIN_STD_LID
+    implementation DepJetBrainKotlin.KOTLIN_COROUTINE_ANDROID
+    implementation DepJetBrainKotlin.KOTLIN_COROUTINE_CORE
+    implementation DepGoogleAndroid.HILT_ANDROID
+    kapt DepGoogleAndroid.HILT_COMPILER
 
-    implementation deps.google_android.android_material
-    implementation deps.google_android.gson
+    implementation DepGoogleAndroid.ANDROID_MATERIAL
+    implementation DepGoogleAndroid.GSON
 
-    implementation deps.androidX.core_ktx
-    implementation deps.androidX.legacy_support
-    implementation deps.androidX.compact
-    implementation deps.androidX.constraint_layout
-    implementation deps.androidX.lifecyle_viewmodel
-    implementation deps.androidX.lifecyle_livedata
-    implementation deps.androidX.lifecyle_commion_java
-    implementation deps.androidX.navigation_fragment
-    implementation deps.androidX.navigation_ui
-    implementation deps.androidX.room_runtime
-    implementation deps.androidX.room_ktx
-    kapt deps.androidX.room_compiler
+    implementation DepAndroidX.CORE_KTX
+    implementation DepAndroidX.LEGACY_SUPPORT
+    implementation DepAndroidX.COMPACT
+    implementation DepAndroidX.CONSTRAINT_LAYOUT
+    implementation DepAndroidX.LIFECYCLE_VIEW_MODEL
+    implementation DepAndroidX.LIFECYCLE_LIVEDATA
+    implementation DepAndroidX.lifecyleCommionJava
+    implementation DepAndroidX.navigationFragment
+    implementation DepAndroidX.navigationUi
+    implementation DepAndroidX.roomRuntime
+    implementation DepAndroidX.roomKtx
+    kapt DepAndroidX.roomCompiler
 
-    implementation deps.sqaure.retrofit
-    implementation deps.sqaure.retrofit_gson
-    implementation deps.sqaure.ohhtp3
+    implementation DepSquare.RETROFIT
+    implementation DepSquare.RETROFIT_GSON
+    implementation DepSquare.OK_HTTP
 
-    implementation deps.glide.core
-    kapt deps.glide.compiler
+    implementation DepGlide.core
+    kapt DepGlide.compiler
 
     // optional - Test helpers
-    testImplementation deps.test.room
-    testImplementation deps.test.junit
-    testImplementation deps.test.okhttp_mock_server
-    testImplementation deps.test.google_truth
-    androidTestImplementation deps.test.junit_android
-    androidTestImplementation deps.test.android_espresso
+    testImplementation DepTest.room
+    testImplementation DepTest.JUNIT
+    testImplementation DepTest.OKHTTP_MOCK_SERVER
+    testImplementation DepTest.GOOGLE_TRUTH
+    testImplementation DepTest.ioMockk
+    androidTestImplementation DepTest.JUNIT_ANDROID
+    androidTestImplementation DepTestAndroidX.ANDROID_ESPRESSO
 }

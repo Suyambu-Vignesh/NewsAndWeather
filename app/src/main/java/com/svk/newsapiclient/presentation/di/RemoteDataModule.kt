@@ -17,20 +17,7 @@ class RemoteDataModule {
     @Provides
     fun provideNewsRemoteDataSource(
         newsAPIService: NewsAPIService
-    ):NewsRemoteDataSource{
-       return NewsRemoteDataSourceImpl(newsAPIService)
+    ): NewsRemoteDataSource {
+        return NewsRemoteDataSourceImpl(newsAPIService)
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,5 @@
 package com.svk.newsapiclient.data.api
 
-
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
@@ -29,21 +28,20 @@ class NewsAPIServiceTest {
     }
 
     private fun enqueueMockResponse(
-      fileName:String
-    ){
-      val inputStream = javaClass.classLoader!!.getResourceAsStream(fileName)
-      val source = inputStream.source().buffer()
-      val mockResponse = MockResponse()
-      mockResponse.setBody(source.readString(Charsets.UTF_8))
-      server.enqueue(mockResponse)
-
+        fileName: String
+    ) {
+        val inputStream = javaClass.classLoader!!.getResourceAsStream(fileName)
+        val source = inputStream.source().buffer()
+        val mockResponse = MockResponse()
+        mockResponse.setBody(source.readString(Charsets.UTF_8))
+        server.enqueue(mockResponse)
     }
 
     @Test
-    fun getTopHeadlines_sentRequest_receivedExpected(){
+    fun getTopHeadlines_sentRequest_receivedExpected() {
         runBlocking {
             enqueueMockResponse("newsresponse.json")
-            val responseBody = service.getTopHeadlines("us",1).body()
+            val responseBody = service.getTopHeadlines("us", 1).body()
             val request = server.takeRequest()
             assertThat(responseBody).isNotNull()
             assertThat(request.path).isEqualTo("/v2/top-headlines?country=us&page=1&apiKey=b7122b5c5f8948eda9715867b6240ce6")
@@ -51,20 +49,20 @@ class NewsAPIServiceTest {
     }
 
     @Test
-    fun getTopHeadlines_receivedResponse_correctPageSize(){
-      runBlocking {
-          enqueueMockResponse("newsresponse.json")
-          val responseBody = service.getTopHeadlines("us",1).body()
-          val articlesList = responseBody!!.articles
-          assertThat(articlesList.size).isEqualTo(20)
-      }
+    fun getTopHeadlines_receivedResponse_correctPageSize() {
+        runBlocking {
+            enqueueMockResponse("newsresponse.json")
+            val responseBody = service.getTopHeadlines("us", 1).body()
+            val articlesList = responseBody!!.articles
+            assertThat(articlesList.size).isEqualTo(20)
+        }
     }
 
     @Test
-    fun getTopHeadlines_receivedResponse_correctContent(){
+    fun getTopHeadlines_receivedResponse_correctContent() {
         runBlocking {
             enqueueMockResponse("newsresponse.json")
-            val responseBody = service.getTopHeadlines("us",1).body()
+            val responseBody = service.getTopHeadlines("us", 1).body()
             val articlesList = responseBody!!.articles
             val article = articlesList[0]
             assertThat(article.author).isEqualTo("Saheli Roy Choudhury")
@@ -75,6 +73,6 @@ class NewsAPIServiceTest {
 
     @After
     fun tearDown() {
-       server.shutdown()
+        server.shutdown()
     }
 }

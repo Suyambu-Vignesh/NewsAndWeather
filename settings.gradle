@@ -13,5 +13,21 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app'
 rootProject.name = "NewsAndWeather"
+include ':app'
+include ':core:common'
+include ':core:analytics'
+include ':core:network'
+include ':core:navigation'
+include ':core:root'
+include ':feature:home:api'
+include ':feature:home:impl'
+include ':feature:search:impl'
+include ':feature:search:api'
+include ':feature:save:impl'
+include ':feature:save:api'
+include ':core:principle'
+include ':news'
+include ':data:news'
+include ':core:storage'
+include ':core:common-test'

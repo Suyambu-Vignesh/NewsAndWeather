@@ -1,9 +1,13 @@
 buildscript {
-    apply from: new File(rootProject.projectDir, "${projectRoot}/gradle/support/versions.gradle")
-    apply from: new File(rootProject.projectDir, "${projectRoot}/gradle/support/deps.gradle")
-
     dependencies {
-        classpath(deps.root_deps.nav_safe_agrs)
+        classpath(DepProjectRoot.NAV_SAFE_ARG)
+    }
+
+    ext {
+        plugin_android = DepVersion.PLUGIN_ANDROID
+        plugin_jetbrains_kotlin = DepVersion.PLUGIN_JET_BRAIN_ANDROID
+        plugin_hilt = DepVersion.PLUGIN_HILT
+        plugin_klint = DepVersion.PLUGIN_KLINT
     }
 }
 
@@ -12,9 +16,30 @@ plugins {
     id 'com.android.library' version "${plugin_android}" apply false
     id 'org.jetbrains.kotlin.android' version "${plugin_jetbrains_kotlin}" apply false
     id 'com.google.dagger.hilt.android' version "${plugin_hilt}" apply false
+    id 'org.jlleitschuh.gradle.ktlint' version "$plugin_klint"
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+allprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                defaultConfig {
+                    buildConfigField("String", "APP_VERSION_NAME", "\"${AppConfig.appVersionName}\"")
+                }
+            }
+        }
+    }
+}
+
+allprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint" // Version should be inherited from parent
+
+    // Optionally configure plugin
+    ktlint {
+        debug = true
+    }
+}

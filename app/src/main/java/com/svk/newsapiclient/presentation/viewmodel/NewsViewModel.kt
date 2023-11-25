@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class NewsViewModel(
-    private val app:Application,
+    private val app: Application,
     private val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
     private val getSearchedNewsUseCase: GetSearchedNewsUseCase,
     private val saveNewsUseCase: SaveNewsUseCase,
@@ -26,22 +26,19 @@ class NewsViewModel(
 
     fun getNewsHeadLines(country: String, page: Int) = viewModelScope.launch(Dispatchers.IO) {
         newsHeadLines.postValue(Resource.Loading())
-        try{
-      if(isNetworkAvailable(app)) {
-
-          val apiResult = getNewsHeadlinesUseCase.execute(country, page)
-          newsHeadLines.postValue(apiResult)
-      }else{
-          newsHeadLines.postValue(Resource.Error("Internet is not available"))
-      }
-
-        }catch (e:Exception){
+        try {
+            if (isNetworkAvailable(app)) {
+                val apiResult = getNewsHeadlinesUseCase.execute(country, page)
+                newsHeadLines.postValue(apiResult)
+            } else {
+                newsHeadLines.postValue(Resource.Error("Internet is not available"))
+            }
+        } catch (e: Exception) {
             newsHeadLines.postValue(Resource.Error(e.message.toString()))
         }
-
     }
 
-    private fun isNetworkAvailable(context: Context?):Boolean{
+    private fun isNetworkAvailable(context: Context?): Boolean {
         if (context == null) return false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -66,18 +63,17 @@ class NewsViewModel(
             }
         }
         return false
-
     }
 
-    //search
-    val searchedNews : MutableLiveData<Resource<APIResponse>> = MutableLiveData()
+    // search
+    val searchedNews: MutableLiveData<Resource<APIResponse>> = MutableLiveData()
 
     fun searchNews(
         country: String,
-        searchQuery : String,
+        searchQuery: String,
         page: Int
     ) = viewModelScope.launch {
-       searchedNews.postValue(Resource.Loading())
+        searchedNews.postValue(Resource.Loading())
         try {
             if (isNetworkAvailable(app)) {
                 val response = getSearchedNewsUseCase.execute(
@@ -89,17 +85,17 @@ class NewsViewModel(
             } else {
                 searchedNews.postValue(Resource.Error("No internet connection"))
             }
-        }catch(e:Exception){
+        } catch (e: Exception) {
             searchedNews.postValue(Resource.Error(e.message.toString()))
         }
     }
 
-    //local data
+    // local data
     fun saveArticle(article: Article) = viewModelScope.launch {
         saveNewsUseCase.execute(article)
     }
 
-    fun getSavedNews() = liveData{
+    fun getSavedNews() = liveData {
         getSavedNewsUseCase.execute().collect {
             emit(it)
         }
@@ -108,19 +104,4 @@ class NewsViewModel(
     fun deleteArticle(article: Article) = viewModelScope.launch {
         deleteSavedNewsUseCase.execute(article)
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
